@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 {% if package_git %}Vcs-Git: {{ package_git }}{% endif %}
 
 Package: {{ package_name }}
-Architecture: amd64
+Architecture: any
 Depends: bash, adduser{% if package_depends %}, {{ package_depends }}{% endif %}
 Description: {{ package_shortdesc }}
   {{ package_desc }}

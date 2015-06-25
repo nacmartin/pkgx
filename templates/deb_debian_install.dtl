@@ -4,4 +4,5 @@ erts-{{ erts_version }} /usr/lib/{{ package_name }}
 {% endif %}
 lib/ /usr/lib/{{ package_name }}
 releases/ /usr/lib/{{ package_name }}
-{{ package_name }}.config /etc/{{ package_name }}
+releases/{{ version }}/sys.config /etc/{{ package_name }}
+releases/{{ version }}/vm.args /etc/{{ package_name }}

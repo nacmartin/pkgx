@@ -16,7 +16,7 @@ main(Targets) ->
         true ->
             {ok, PkgVars} = file:consult(VarsFile),
             {package_name, PkgName} = proplists:lookup(package_name, PkgVars),
-            ReleasesFile = "_rel/releases/RELEASES",
+            ReleasesFile = "_rel/" ++ PkgName ++ "/releases/RELEASES",
             case filelib:is_regular(ReleasesFile) of
                 false ->
                     cli_error("No RELEASE file found for " ++ PkgName ++ ". Run './relx release' first.");
@@ -25,7 +25,7 @@ main(Targets) ->
                     [Release|_] = lists:sort(ReleasesList0),
                     {release, AppName, Vsn, ErtsVsn, _Deps, _Permanent} = Release,
                     io:format(user, "Using release: ~s ~s~n", [AppName, Vsn]),
-                    Vars = [{app, AppName}, {version, Vsn}, {erts_version, ErtsVsn}, {basedir, "_rel"}, {relx, relx_vars()} | PkgVars],
+                    Vars = [{app, AppName}, {version, Vsn}, {erts_version, ErtsVsn}, {basedir, "_rel/" ++ PkgName}, {relx, relx_vars()} | PkgVars],
                     [ok = run_target(AppName, Vsn, Vars, T) || T <- Targets],
                     ok
             end
