@@ -1,8 +1,6 @@
 bin/ /usr/lib/{{ package_name }}
-{% if relx.include_erts|default:true %}
-erts-{{ erts_version }} /usr/lib/{{ package_name }}
-{% endif %}
+erts-{{ erts_version }}/ /usr/lib/{{ package_name }}
 lib/ /usr/lib/{{ package_name }}
 releases/ /usr/lib/{{ package_name }}
-releases/{{ version }}/sys.config /etc/{{ package_name }}
+releases/{{ version }}/carotene.config /etc/{{ package_name }}
 releases/{{ version }}/vm.args /etc/{{ package_name }}

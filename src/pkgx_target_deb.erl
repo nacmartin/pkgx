@@ -22,11 +22,13 @@ run(_AppName, _Vsn, PkgVars) ->
          {PkgName ++ ".config", package_config_dtl}
         ],
     Basedir = proplists:get_value(basedir, PkgVars),
+    Vsn = proplists:get_value(version, PkgVars),
     lists:map(fun ({F, V}) ->
                       TargetFile = filename:join(Basedir, F),
                       filelib:ensure_dir(TargetFile),
                       process_file_entry(TargetFile, V, PkgVars)
               end, FileMap),
+    os:cmd("cd \"" ++ Basedir ++ "\" && mv releases/" ++ Vsn ++ "/sys.config releases/" ++ Vsn ++ "/carotene.config"),
     Output = os:cmd("cd \"" ++ Basedir ++ "\" && debuild --no-tgz-check -i -us -uc -b"),
     io:format(user, "~s~n", [unicode:characters_to_binary(Output)]),
     ok.
